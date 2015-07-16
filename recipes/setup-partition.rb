@@ -11,6 +11,7 @@ end
 bash "fdisk_/dev/xvde" do
 	user 'root'
 	cwd '/tmp'
+	returns [0,1]
 	## Setup the partition
 	code <<-EOF
 /sbin/fdisk /dev/xvde <<EOC
@@ -22,6 +23,10 @@ p
 w
 EOC
 EOF
+end
+
+execute "partx_#{device_id}" do
+  command "partx -a /dev/xvde"
 end
 
 execute "partprobe_#{device_id}" do
@@ -36,8 +41,6 @@ end
 
 mount "#{mount_point}" do
   device "#{device_id}"
-  fstype "#{fs_type}"
-  options 'noatime,nobootwait'
   action [:enable, :mount]
 end
 
