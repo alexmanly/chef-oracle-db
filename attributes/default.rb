@@ -1,2 +1,5 @@
 default['base-oracle-node']['hostname'] = 'oracledb1'
 default['base-oracle-node']['partition_size'] = '2G'
+default['base-oracle-node']['mount_point'] = '/opt/oracle'
+default['base-oracle-node']['device_id'] = '/dev/xvde2'
+default['base-oracle-node']['fs_type'] = 'ext4'
