@@ -40,3 +40,27 @@ From the Workstation log into the node and run chef-client:
 
 	chef-client
 
+Test the installation
+	
+	su - oracle -c 'echo "select 123 from dual;" | sqlplus / as sysdba'
+
+	'''
+	SQL*Plus: Release 12.1.0.2.0 Production on Thu Jul 16 22:55:12 2015
+
+	Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+	Connected to:
+	Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+	With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+	SYS@DB1>
+	       123
+	----------
+	       123
+
+	SYS@DB1>Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+	With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+	[root@oracledb ~]#
+	'''
+
