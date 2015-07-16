@@ -10,21 +10,21 @@ end
 bash "fdisk_#{device}" do
 	user 'root'
 	cwd '/tmp'
+  not_if "/sbin/fdisk -l #{node['base-oracle-db']['device_id']} | grep #{device}"
 	## Setup the partition
 	code <<-EOF
 /sbin/fdisk /dev/xvde <<EOC || true
 n
 p
-node['base-oracle-db']['partition_number']
+#{node['base-oracle-db']['partition_number']}
 
 #{node['base-oracle-db']['partition_size']}
 w
 EOC
 EOF
-  not_if "/sbin/fdisk -l #{node['base-oracle-db']['device_id']} | grep #{device}"
 end
 
-execute "partx_#{device}" do
+execute "partx_#{node['base-oracle-db']['device_id']}" do
   command "partx -a #{node['base-oracle-db']['device_id']}"
 end
 
