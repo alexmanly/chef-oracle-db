@@ -4,3 +4,4 @@ metadata
 
 cookbook 'hostsfile'
 cookbook 'sudo'
+cookbook 'oracle'

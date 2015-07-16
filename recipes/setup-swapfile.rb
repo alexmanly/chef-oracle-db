@@ -1,25 +1,28 @@
-directory '/var/cache/swap' 
+dir = node['base-oracle-db']['swapfile_directory']
+file = node['base-oracle-db']['swapfile_name']
+
+directory dir 
 
 execute "create_swap_file" do
-  command "dd if=/dev/zero of=/var/cache/swap/swapfile bs=1024 count=204800"
-  not_if "/sbin/swapon -s  | grep /var/cache/swap/swapfile"
+  command "dd if=/dev/zero of=#{dir}/#{file} bs=1024 count=204800"
+  not_if "/sbin/swapon -s  | grep #{dir}/#{file}"
 end
 
-file '/var/cache/swap/swapfile' do
+file "#{dir}/#{file}" do
   mode '0600'
 end
 
 execute "mkswap" do
-  command "/sbin/mkswap /var/cache/swap/swapfile"
-  not_if "/sbin/swapon -s  | grep /var/cache/swap/swapfile"
+  command "/sbin/mkswap #{dir}/#{file}"
+  not_if "/sbin/swapon -s  | grep #{dir}/#{file}"
 end
 
 execute "swapon" do
-  command "/sbin/swapon /var/cache/swap/swapfile"
-  not_if "/sbin/swapon -s  | grep /var/cache/swap/swapfile"
+  command "/sbin/swapon #{dir}/#{file}"
+  not_if "/sbin/swapon -s  | grep #{dir}/#{file}"
 end
 
-execute "swapon" do
-  command '/bin/echo "/var/cache/swap/swapfile       none                swap   sw            0 0" >> /etc/fstab'
-  not_if "/sbin/swapon -s  | grep /var/cache/swap/swapfile"
+execute "fstab_swapfile" do
+  command '/bin/echo "#{dir}/#{file}       none                swap   sw            0 0" >> /etc/fstab'
+  not_if do ::File.readlines("/etc/fstab").grep(/"#{file}"/).any? end
 end
