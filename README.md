@@ -26,6 +26,8 @@ To create the instace follow these instructions:
 
 To bootstrap the node and add the role to the node run the following commands:
 
+    knife role from file oracledb.rb
+
 	ssh -i <your private key> root@10.0.0.80 'echo "10.0.0.10 chefserver" >> /etc/hosts; mkdir -p /etc/chef; touch /etc/chef/encrypted_data_bag_secret; echo "superSECRETencryptionKEY" >> /etc/chef/encrypted_data_bag_secret'
 
 	knife bootstrap 10.0.0.80 -N oracledb -x root -i <your private key>
