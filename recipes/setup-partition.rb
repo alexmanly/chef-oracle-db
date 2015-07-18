@@ -1,4 +1,4 @@
-mount_point = node['base-oracle-db']['mount_point']
+mount_point = node['oracle']['ora_base']
 device = node['base-oracle-db']['device_id'] + node['base-oracle-db']['partition_number']
 
 directory "#{mount_point}"
@@ -35,7 +35,7 @@ end
 execute 'mkfs' do
   command "mkfs -t #{node['base-oracle-db']['fs_type']} #{device}"
   # only if it's not mounted already
-  not_if "grep -qs #{node['base-oracle-db']['mount_point']} /proc/mounts"
+  not_if "grep -qs #{node['oracle']['ora_base']} /proc/mounts"
 end
 
 mount "#{mount_point}" do

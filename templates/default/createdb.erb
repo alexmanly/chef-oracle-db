@@ -1,0 +1,43 @@
+SELECT 'DROP SEQUENCE ' || sequence_name || ';' FROM all_sequences asq where asq.sequence_owner = '<%= node['base-oracle-db']['schema']['user']['name'] %>';
+
+DROP USER <%= node['base-oracle-db']['schema']['user']['name'] %> CASCADE;
+
+DROP ROLE <%= node['base-oracle-db']['schema']['role']['name'] %>;
+
+-- Cleanup Tablespace Schema
+DROP TABLESPACE <%= node['base-oracle-db']['schema']['tablespace']['name'] %>
+    INCLUDING CONTENTS AND DATAFILES
+        CASCADE CONSTRAINTS; 
+
+CREATE tablespace <%= node['base-oracle-db']['schema']['tablespace']['name'] %>
+logging
+datafile '<%= node['base-oracle-db']['schema']['tablespace']['datafile'] %>'
+size 32m 
+autoextend on 
+next 32m maxsize 2048m
+extent management local;
+  
+CREATE USER <%= node['base-oracle-db']['schema']['user']['name'] %>
+    IDENTIFIED BY <%= node['base-oracle-db']['schema']['user']['password'] %>
+        DEFAULT TABLESPACE <%= node['base-oracle-db']['schema']['tablespace']['name'] %>;
+		
+GRANT UNLIMITED TABLESPACE TO <%= node['base-oracle-db']['schema']['user']['name'] %>;
+
+CREATE ROLE <%= node['base-oracle-db']['schema']['role']['name'] %>;
+
+GRANT CREATE session, CREATE table, CREATE view, CREATE procedure, CREATE synonym, CREATE trigger, CREATE sequence TO <%= node['base-oracle-db']['schema']['role']['name'] %>;
+
+GRANT ALTER Any table, ALTER Any procedure, ALTER Any trigger, ALTER Any sequence
+TO <%= node['base-oracle-db']['schema']['role']['name'] %>;
+
+GRANT DROP Any table, DROP Any view, DROP Any procedure, DROP Any synonym, DROP Any trigger, drop Any sequence TO <%= node['base-oracle-db']['schema']['role']['name'] %>;
+
+grant select on sys.dba_pending_transactions to <%= node['base-oracle-db']['schema']['user']['name'] %>;
+grant select on sys.pending_trans$ to <%= node['base-oracle-db']['schema']['user']['name'] %>;
+grant select on sys.dba_2pc_pending to <%= node['base-oracle-db']['schema']['user']['name'] %>;
+grant execute on sys.dbms_system to <%= node['base-oracle-db']['schema']['user']['name'] %>;
+
+GRANT <%= node['base-oracle-db']['schema']['role']['name'] %> TO <%= node['base-oracle-db']['schema']['user']['name'] %>;
+
+commit;
+exit
