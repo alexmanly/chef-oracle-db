@@ -1,0 +1,11 @@
+insert into Players values (1,'Hazard','Eden','Chelsea','Center Midfield');
+insert into Players values (13,'Courtois','Thibaut','Chelsea','Goal Keeper');
+insert into Players values (2,'Branislav','Ivanovic','Chelsea','Defender');
+insert into Players values (3,'Luis','Filipe','Chelsea','Defender');
+insert into Players values (4,'Fabregas','Cesc','Chelsea','Midfielder');
+insert into Players values (5,'Zouma','Kurt','Chelsea','Defender');
+insert into Players values (6,'Ake','Nathan','Chelsea','Defender');
+insert into Players values (7,'Ramires','','Chelsea','Midfielder');
+insert into Players values (8,'Oscar','','Chelsea','Midfielder');
+insert into Players values (19,'Costa','Diego','Chelsea','Forward');
+insert into Players values (26,'Terry','John','Chelsea','Defender');
