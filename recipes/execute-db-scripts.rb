@@ -12,6 +12,6 @@ node['base-oracle-db']['scripts']['scripts'].each { |script|
 
 bash 'flyway migrate' do
   code './flyway migrate'
-  cwd "#{node['oracle']['ora_base']}/flyway-#{node['flyway']['version']}"
+  cwd "#{node['oracle']['ora_base']}/flyway-#{node['base-oracle-db']['flyway']['version']}"
   action :run
 end
