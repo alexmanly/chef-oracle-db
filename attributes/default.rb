@@ -27,15 +27,14 @@ default['base-oracle-db']['schema']['tablespace']['datafile'] = node['base-oracl
 default['base-oracle-db']['schema']['role']['name']= 'role_demo'
 default['base-oracle-db']['schema']['user']['name'] = 'demo'
 default['base-oracle-db']['schema']['user']['password'] = 'demo'
+default['base-oracle-db']['schema']['sys']['name'] = 'sys'
+default['base-oracle-db']['schema']['sys']['password'] = 'demo'
 
-default['base-oracle-db']['scripts']['script_dir_name'] = 'oracle_scripts'
-default['base-oracle-db']['scripts']['cache_script_path'] = Chef::Config[:file_cache_path] + '/' + default['base-oracle-db']['scripts']['script_dir_name']
-default['base-oracle-db']['scripts']['scripts'] = ['V001__schema.sql', 'V002__data.sql']
-
+default['base-oracle-db']['flyway']['locations'] = 'oracle_scripts'
 default['base-oracle-db']['flyway']['version'] = '3.2.1'
 default['base-oracle-db']['flyway']['conf'] = {
 	url: 'jdbc:oracle:thin:@//' + default['base-oracle-db']['hostname'] + ':1521/DB1',
 	user: default['base-oracle-db']['schema']['user']['name'] ,
 	password: default['base-oracle-db']['schema']['user']['password'],
-	locations: 'filesystem:' + default['base-oracle-db']['scripts']['cache_script_path']
+	locations: 'filesystem:' + Chef::Config[:file_cache_path] + '/' + default['base-oracle-db']['flyway']['locations']
 }
