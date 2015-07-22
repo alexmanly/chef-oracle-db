@@ -1,8 +1,8 @@
 sqlplus 'sqlplus_create_user_db' do
-  location 'create_user_db'
-  user node['base-oracle-db']['schema']['sys']['name']
-  password node['base-oracle-db']['schema']['sys']['password']
-  install_dir "#{node['oracle']['ora_base']}"
+  location node[:base_oracle_db][:schema][:sys][:locations]
+  user node[:base_oracle_db][:schema][:sys][:name]
+  password node[:base_oracle_db][:schema][:sys][:password]
+  install_dir node[:oracle][:ora_base]
   owner 'oracle'
   group 'oinstall'
   sysdba 'as sysdba'

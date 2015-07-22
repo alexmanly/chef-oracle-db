@@ -1,7 +1,6 @@
-mount_point = node['oracle']['ora_base']
-device = node['base-oracle-db']['device_id'] + node['base-oracle-db']['partition_number']
+device = node[:base_oracle_db][:device_id] + node[:base_oracle_db][:partition_number]
 
-directory "#{mount_point}"
+directory node[:oracle][:ora_base]
 
 package 'parted' do
   action :upgrade
@@ -10,22 +9,22 @@ end
 bash "fdisk_#{device}" do
 	user 'root'
 	cwd '/tmp'
-  not_if "/sbin/fdisk -l #{node['base-oracle-db']['device_id']} | grep #{device}"
+  not_if "/sbin/fdisk -l #{node[:base_oracle_db][:device_id]} | grep #{device}"
 	## Setup the partition
 	code <<-EOF
 /sbin/fdisk /dev/xvde <<EOC || true
 n
 p
-#{node['base-oracle-db']['partition_number']}
+#{node[:base_oracle_db][:partition_number]}
 
-#{node['base-oracle-db']['partition_size']}
+#{node[:base_oracle_db][:partition_size]}
 w
 EOC
 EOF
 end
 
-execute "partx_#{node['base-oracle-db']['device_id']}" do
-  command "partx -a #{node['base-oracle-db']['device_id']}"
+execute "partx_#{node[:base_oracle_db][:device_id]}" do
+  command "partx -a #{node[:base_oracle_db][:device_id]}"
 end
 
 execute "partprobe_#{device}" do
@@ -33,12 +32,12 @@ execute "partprobe_#{device}" do
 end
 
 execute 'mkfs' do
-  command "mkfs -t #{node['base-oracle-db']['fs_type']} #{device}"
+  command "mkfs -t #{node[:base_oracle_db][:fs_type]} #{device}"
   # only if it's not mounted already
-  not_if "grep -qs #{node['oracle']['ora_base']} /proc/mounts"
+  not_if "grep -qs #{node[:oracle][:ora_base]} /proc/mounts"
 end
 
-mount "#{mount_point}" do
+mount "mount_#{node[:oracle][:ora_base]}" do
   device "#{device}"
   action [:enable, :mount]
 end
