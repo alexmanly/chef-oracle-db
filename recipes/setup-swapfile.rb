@@ -1,5 +1,5 @@
-dir = node['base-oracle-db']['swapfile_directory']
-file = node['base-oracle-db']['swapfile_name']
+dir = node[:base_oracle_db][:swapfile_directory]
+file = node[:base_oracle_db][:swapfile_name]
 
 directory dir 
 
