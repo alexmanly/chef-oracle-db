@@ -15,9 +15,11 @@ class Chef
         # Create stripts directory in the cache
         scripts_location = Chef::Config[:file_cache_path] + '/' + new_resource.location
         directory scripts_location do
+          recursive true
           action :delete
         end
         directory scripts_location do
+          recursive true
           action :create
         end
 
