@@ -14,7 +14,14 @@ class Chef
       action :run do
         # Create stripts directory in the cache
         scripts_location = Chef::Config[:file_cache_path] + '/' + new_resource.location
-        directory scripts_location
+        directory scripts_location do
+          recursive true
+          action :delete
+        end
+        directory scripts_location do
+          recursive true
+          action :create
+        end
 
         # Copy all scripts from the templates scritps dir to the cache scripts dir
         run_context.cookbook_collection['base-oracle-db'].manifest['templates'].each do |tmplt|
