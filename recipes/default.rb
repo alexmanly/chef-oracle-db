@@ -6,6 +6,7 @@
 include_recipe 'base-oracle-db::setup-hosts'
 include_recipe 'base-oracle-db::setup-secret-key'
 include_recipe 'base-oracle-db::setup-sudoers'
+include_recipe 'base-oracle-db::setup-iptables'
 include_recipe 'base-oracle-db::setup-swapfile'
 include_recipe 'base-oracle-db::setup-partition'
 include_recipe 'oracle::default'
