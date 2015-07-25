@@ -25,10 +25,12 @@ end
 
 execute "partx_#{node[:base_oracle_db][:device_id]}" do
   command "partx -a #{node[:base_oracle_db][:device_id]}"
+  not_if "/sbin/fdisk -l #{node[:base_oracle_db][:device_id]} | grep #{device}"
 end
 
 execute "partprobe_#{device}" do
   command "partprobe #{device}"
+  not_if "/sbin/fdisk -l #{node[:base_oracle_db][:device_id]} | grep #{device}"
 end
 
 execute 'mkfs' do
@@ -37,7 +39,7 @@ execute 'mkfs' do
   not_if "grep -qs #{node[:oracle][:ora_base]} /proc/mounts"
 end
 
-mount "mount_#{node[:oracle][:ora_base]}" do
+mount "#{node[:oracle][:ora_base]}" do
   device "#{device}"
   action [:enable, :mount]
 end

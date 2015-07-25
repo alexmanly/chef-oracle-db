@@ -14,7 +14,7 @@ default[:base_oracle_db][:encryption_key] = 'superSECRETencryptionKEY'
 default[:base_oracle_db][:swapfile_directory] = '/var/cache/swap'
 default[:base_oracle_db][:swapfile_name] = 'swapfile'
 
-default[:base_oracle_db][:device_id] = '/dev/xvde'
+default[:base_oracle_db][:device_id] = '/dev/xvdj'
 default[:base_oracle_db][:partition_number] = '2'
 default[:base_oracle_db][:partition_size] = '+40G'
 #default[:oracle][:ora_base] = '/opt/oracle'
