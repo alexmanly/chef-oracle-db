@@ -23,7 +23,8 @@ class Chef
 		bash "fdisk_#{device}" do
 			user 'root'
 			cwd '/tmp'
-		  not_if "/sbin/fdisk -l #{new_resource.device_id} | grep #{device}"
+			notifies :run, "execute[partx_#{new_resource.device_id}]", :immediately
+		  	not_if "/sbin/fdisk -l #{new_resource.device_id} | grep #{device}"
 			## Setup the partition
 			code <<-EOF
 		/sbin/fdisk /dev/xvde <<EOC || true
@@ -39,25 +40,25 @@ class Chef
 
 		execute "partx_#{new_resource.device_id}" do
 		  command "partx -a #{new_resource.device_id}"
-		  not_if "/sbin/fdisk -l #{new_resource.device_id} | grep #{device}"
+		  notifies :run, "execute[partprobe_#{device}]", :immediately
+		  action :nothing
 		end
 
 		execute "partprobe_#{device}" do
 		  command "partprobe #{device}"
-		  not_if "/sbin/fdisk -l #{new_resource.device_id} | grep #{device}"
+		  notifies :run, "execute[mkfs]", :immediately
+		  action :nothing
 		end
 
 		execute 'mkfs' do
 		  command "mkfs -t #{new_resource.fs_type} #{device}"
-		  # only if it's not mounted already
-		  not_if "grep -qs #{new_resource.mount_dir} /proc/mounts"
+		  action :nothing
 		end
 
 		mount "#{new_resource.mount_dir}" do
 		  device "#{device}"
 		  action [:enable, :mount]
 		end
-
       end
     end
   end
