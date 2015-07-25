@@ -18,7 +18,6 @@ default[:base_oracle_db][:swapfile_name] = 'swapfile'
 default[:base_oracle_db][:device_id] = '/dev/xvdj'
 default[:base_oracle_db][:partition_number] = '2'
 default[:base_oracle_db][:partition_size] = '+40G'
-#default[:oracle][:ora_base] = '/opt/oracle'
 default[:base_oracle_db][:fs_type] = 'ext4'
 
 default[:base_oracle_db][:schema][:tablespace][:name] = 'ts_demo'

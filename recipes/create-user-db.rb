@@ -1,6 +1,6 @@
 directory node[:base_oracle_db][:schema][:tablespace][:directory] do
   owner node[:oracle][:user][:edb]
-  group 'oinstall'
+  group node[:oracle][:cliuser][:sup_grps].keys[0]
 end
 
 sqlplus 'sqlplus_create_user_db' do
@@ -9,7 +9,7 @@ sqlplus 'sqlplus_create_user_db' do
   password node[:base_oracle_db][:schema][:sys][:password]
   install_dir node[:oracle][:ora_base]
   owner node[:oracle][:user][:edb]
-  group 'oinstall'
+  group node[:oracle][:cliuser][:sup_grps].keys[0]
   sysdba 'as sysdba'
   oracle_sid 'DB1'
   oracle_env '12R1'
