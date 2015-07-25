@@ -1,0 +1,10 @@
+{
+  "id": "client_pw",
+  "pw": {
+    "encrypted_data": "TWQDS+jDDTZZG4IQak+mUcfPE/zTSFFCvduzN9K4v+2eYcFtvE64UeI9dvNd\nR81Y\n",
+    "iv": "CFJGPgPEnv7gUc0OeNLVtA==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
+

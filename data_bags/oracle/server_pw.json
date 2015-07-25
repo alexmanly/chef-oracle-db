@@ -1,0 +1,10 @@
+{
+  "id": "server_pw",
+  "pw": {
+    "encrypted_data": "iTiF7x89hnBWwg41U1WpIaWOz0r1Svn12oQJ8dFhHEScCX+SL3t569kyimaD\nNmkb\n",
+    "iv": "jWh/X3q51VLuK8SSc0exuw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
+
