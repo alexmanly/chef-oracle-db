@@ -32,13 +32,13 @@ class Chef
               owner "#{new_resource.owner}"
               group "#{new_resource.group}"
               mode "0644"
+              sensitive true
             end
 
             execute "sqlplus_#{tmplt['name']}" do
               command "#{new_resource.install_dir}/12R1/bin/sqlplus #{new_resource.user}/#{new_resource.password} #{new_resource.sysdba} < " + scripts_location + "/#{tmplt['name']}"
-              user 'oracle'
-              group 'oinstall'
-              cwd '/tmp'
+              user "#{new_resource.owner}"
+              group "#{new_resource.group}"
               environment(
                 'ORACLE_BASE' => "#{new_resource.install_dir}",
                 'ORACLE_HOME' => "#{new_resource.install_dir}/#{new_resource.oracle_env}",

@@ -29,6 +29,7 @@ class Chef
             template tmplt['name'] do
               path scripts_location + '/' + tmplt['name']
               source new_resource.location + '/' + tmplt['name']
+              sensitive true
             end
           end
         end
@@ -44,6 +45,7 @@ class Chef
         template "#{new_resource.install_dir}/flyway/conf/flyway.conf" do
           source 'flyway.conf.erb'
           owner "#{new_resource.owner}"
+          sensitive true
         end
 
         # run flyway command

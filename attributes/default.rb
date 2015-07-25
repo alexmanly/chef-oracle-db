@@ -1,5 +1,6 @@
 default[:base_oracle_db][:hostname] = 'oracledb'
 default[:base_oracle_db][:hosts] =  {
+	'localhost' => '127.0.0.1',
 	'chefserver' => '10.0.0.10', 
 	'chefanalytics' => '10.0.0.20',
 	'centosweb01' => '10.0.0.30',
