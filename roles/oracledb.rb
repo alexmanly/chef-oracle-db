@@ -29,7 +29,6 @@ override_attributes(
   },
   :base_oracle_db => {
     :hostname => "oracledb",
-    :internal_ip => "10.0.0.80",
     :schema => {
       :tablespace => {
         :name => 'ts_demo',

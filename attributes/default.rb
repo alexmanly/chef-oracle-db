@@ -1,5 +1,4 @@
 default[:base_oracle_db][:hostname] = 'oracledb'
-default[:base_oracle_db][:internal_ip] = '10.0.0.80'
 default[:base_oracle_db][:hosts] =  {
 	'chefserver' => '10.0.0.10', 
 	'chefanalytics' => '10.0.0.20',
@@ -7,7 +6,7 @@ default[:base_oracle_db][:hosts] =  {
 	'centosweb02' => '10.0.0.40',
 	'loadbalancer' => '10.0.0.50',
 	'chefdk' => '10.0.0.60',
-	node[:base_oracle_db][:hostname] => node[:base_oracle_db][:internal_ip]
+	node[:base_oracle_db][:hostname] => node[:ipaddress]
 }
 
 default[:base_oracle_db][:encryption_key] = 'superSECRETencryptionKEY'
@@ -35,7 +34,7 @@ default[:base_oracle_db][:schema][:sys][:locations] = 'create_user_db'
 
 default[:base_oracle_db][:flyway][:version] = '3.2.1'
 default[:base_oracle_db][:flyway][:conf] = {
-	url: 'jdbc:oracle:thin:@//' + node[:base_oracle_db][:hostname] + ':1521/DB1',
+	url: "jdbc:oracle:thin:@//#{node[:base_oracle_db][:hostname]}:1521/DB1",
 	user: node[:base_oracle_db][:schema][:user][:name] ,
 	password: node[:base_oracle_db][:schema][:user][:password],
 	locations: 'filesystem:' + Chef::Config[:file_cache_path] + '/' + node[:base_oracle_db][:schema][:sys][:locations]
