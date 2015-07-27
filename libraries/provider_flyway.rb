@@ -73,7 +73,7 @@ class Chef
             /bin/tar xzf #{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz
             /bin/mv #{new_resource.install_dir}/flyway-#{new_resource.flyway_version} #{new_resource.install_dir}/flyway
             /bin/rm -f #{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz
-            /bin/chown #{new_resource.owner}:#{new_resource.group} #{new_resource.install_dir}/flyway
+            /bin/chown -R #{new_resource.owner}:#{new_resource.group} #{new_resource.install_dir}/flyway
             /bin/ln -s #{new_resource.install_dir}/12R1/jdbc/lib/ojdbc6.jar #{new_resource.install_dir}/flyway/drivers/ojdbc6.jar
             EOH
           not_if do ::File.exists?("#{new_resource.install_dir}/flyway/conf/flyway.conf") end
