@@ -1,4 +1,4 @@
-name "oracledb"
+name "oracle"
 description "Oracle server role for Centos nodes"
 run_list "recipe[base-oracle-db]"
 override_attributes(
@@ -47,6 +47,9 @@ override_attributes(
         :locations => "oracle_scripts"
       }
     },
-    :flyway => { :version => '3.2.1'}
+    :flyway => { 
+      :version => '3.2.1',
+      :url => 'https://bintray.com/artifact/download/business/maven/flyway-commandline'
+    }
   }
 )

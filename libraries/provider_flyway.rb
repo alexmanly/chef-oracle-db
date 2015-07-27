@@ -59,8 +59,8 @@ class Chef
       action :install do
 
         # download
-        remote_file "#{new_resource.install_dir}/flyway-commandline-#{new_resource.version}-linux-x64.tar.gz" do
-          source "https://bintray.com/artifact/download/business/maven/flyway-commandline-#{new_resource.version}-linux-x64.tar.gz"
+        remote_file "#{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz" do
+          source "#{new_resource.flyway_url}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz"
           user "#{new_resource.owner}"
           action :create
           not_if do ::File.exists?("#{new_resource.install_dir}/flyway/conf/flyway.conf") end
@@ -70,9 +70,9 @@ class Chef
         bash 'extract_flyway' do
           cwd "#{new_resource.install_dir}"
           code <<-EOH
-            /bin/tar xzf #{new_resource.install_dir}/flyway-commandline-#{new_resource.version}-linux-x64.tar.gz
-            /bin/mv #{new_resource.install_dir}/flyway-#{new_resource.version} #{new_resource.install_dir}/flyway
-            /bin/rm -f #{new_resource.install_dir}/flyway-commandline-#{new_resource.version}-linux-x64.tar.gz
+            /bin/tar xzf #{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz
+            /bin/mv #{new_resource.install_dir}/flyway-#{new_resource.flyway_version} #{new_resource.install_dir}/flyway
+            /bin/rm -f #{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz
             /bin/chown #{new_resource.owner}:#{new_resource.group} #{new_resource.install_dir}/flyway
             /bin/ln -s #{new_resource.install_dir}/12R1/jdbc/lib/ojdbc6.jar #{new_resource.install_dir}/flyway/drivers/ojdbc6.jar
             EOH
@@ -80,7 +80,7 @@ class Chef
         end
 
         # delete downloaded file
-        file "#{new_resource.install_dir}/flyway-commandline-#{new_resource.version}-linux-x64.tar.gz" do
+        file "#{new_resource.install_dir}/flyway-commandline-#{new_resource.flyway_version}-linux-x64.tar.gz" do
           action :delete
         end
       end 

@@ -1,4 +1,4 @@
-default[:base_oracle_db][:hostname] = 'oracledb'
+default[:base_oracle_db][:hostname] = Chef::Config[:node_name]
 default[:base_oracle_db][:hosts] =  {
 	'localhost' => '127.0.0.1',
 	'chefserver' => '10.0.0.10', 
@@ -15,7 +15,7 @@ default[:base_oracle_db][:encryption_key] = 'superSECRETencryptionKEY'
 default[:base_oracle_db][:swapfile_directory] = '/var/cache/swap'
 default[:base_oracle_db][:swapfile_name] = 'swapfile'
 
-default[:base_oracle_db][:device_id] = '/dev/xvdj'
+default[:base_oracle_db][:device_id] = '/dev/xvde'
 default[:base_oracle_db][:partition_number] = '2'
 default[:base_oracle_db][:partition_size] = '+40G'
 default[:base_oracle_db][:fs_type] = 'ext4'
@@ -33,6 +33,7 @@ default[:base_oracle_db][:schema][:sys][:locations] = 'create_user_db'
 
 
 default[:base_oracle_db][:flyway][:version] = '3.2.1'
+default[:base_oracle_db][:flyway][:url] = 'https://bintray.com/artifact/download/business/maven/flyway-commandline'
 default[:base_oracle_db][:flyway][:conf] = {
 	url: "jdbc:oracle:thin:@//#{node[:base_oracle_db][:hostname]}:1521/DB1",
 	user: node[:base_oracle_db][:schema][:user][:name] ,

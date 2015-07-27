@@ -1,6 +1,7 @@
 flyway "install_flyway_#{node[:oracle][:ora_base]}" do
   install_dir node[:oracle][:ora_base]
-  version node[:base_oracle_db][:flyway]['version']
+  flyway_url node[:base_oracle_db][:flyway][:url]
+  flyway_version node[:base_oracle_db][:flyway]['version']
   owner node[:oracle][:user][:edb]
   group node[:oracle][:cliuser][:sup_grps].keys[0]
   action :install

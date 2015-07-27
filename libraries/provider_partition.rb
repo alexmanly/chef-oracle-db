@@ -27,7 +27,7 @@ class Chef
 		  	not_if "/sbin/fdisk -l #{new_resource.device_id} | grep #{device}"
 			## Setup the partition
 			code <<-EOF
-		/sbin/fdisk /dev/xvde <<EOC || true
+		/sbin/fdisk #{new_resource.device_id} <<EOC || true
 		n
 		p
 		#{new_resource.partition_number}

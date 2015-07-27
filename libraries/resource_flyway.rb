@@ -14,7 +14,8 @@ class Chef
       attribute :user, :name_attribute => true, :kind_of => String
       attribute :password, :name_attribute => true, :kind_of => String
       attribute :install_dir, :name_attribute => true, :kind_of => String
-      attribute :version, :name_attribute => true, :kind_of => String
+      attribute :flyway_version, :name_attribute => true, :kind_of => String
+      attribute :flyway_url, :name_attribute => true, :kind_of => String
       attribute :owner, :name_attribute => true, :kind_of => String
       attribute :group, :name_attribute => true, :kind_of => String
     end
