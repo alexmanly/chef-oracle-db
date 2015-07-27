@@ -28,7 +28,6 @@ override_attributes(
     }
   },
   :base_oracle_db => {
-    :hostname => "oracledb",
     :schema => {
       :tablespace => {
         :name => 'ts_demo',
@@ -49,7 +48,7 @@ override_attributes(
     },
     :flyway => { 
       :version => '3.2.1',
-      :url => 'https://bintray.com/artifact/download/business/maven/flyway-commandline'
+      :url => 'https://bintray.com/artifact/download/business/maven'
     }
   }
 )
