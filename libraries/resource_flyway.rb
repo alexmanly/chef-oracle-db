@@ -18,6 +18,7 @@ class Chef
       attribute :flyway_url, :name_attribute => true, :kind_of => String
       attribute :owner, :name_attribute => true, :kind_of => String
       attribute :group, :name_attribute => true, :kind_of => String
+      attribute :sensitive, :name_attribute => true, :kind_of => [TrueClass, FalseClass]
     end
   end
 end

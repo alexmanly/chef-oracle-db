@@ -14,5 +14,6 @@ flyway "migrate_flyway_#{node[:base_oracle_db][:flyway][:locations]}" do
   password node[:base_oracle_db][:schema][:user][:password]
   install_dir "#{node[:oracle][:ora_base]}"
   owner node[:oracle][:user][:edb]
+  sensitive false
   action :run
 end

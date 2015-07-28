@@ -21,6 +21,7 @@ class Chef
         directory scripts_location do
           recursive true
           action :create
+          owner "#{new_resource.owner}"
         end
 
         # Copy all scripts from the templates scritps dir to the cache scripts dir
@@ -29,23 +30,27 @@ class Chef
             template tmplt['name'] do
               path scripts_location + '/' + tmplt['name']
               source new_resource.location + '/' + tmplt['name']
-              sensitive true
+              owner "#{new_resource.owner}"
+              sensitive new_resource.sensitive
             end
           end
         end
 
         # configure flyway
-        node.default['base-oracle-db']['flyway']['conf'] = {
+        conf = {
           url: "#{new_resource.url}",
           user: "#{new_resource.user}",
           password: "#{new_resource.password}",
-          locations: 'filesystem:' + scripts_location
+          locations: "filesystem:#{scripts_location}"
         }
 
         template "#{new_resource.install_dir}/flyway/conf/flyway.conf" do
           source 'flyway.conf.erb'
           owner "#{new_resource.owner}"
-          sensitive true
+          sensitive new_resource.sensitive
+          variables(
+            :conf => conf,
+          )
         end
 
         # run flyway command
