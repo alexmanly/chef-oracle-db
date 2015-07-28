@@ -24,9 +24,13 @@ To create the instace follow these instructions:
 
 	Key Pair - <your key pair name>
 
-To bootstrap the node, make the node able to talk to the chefserver on it's internal IP and then add the role to the node using the following commands:
+To bootstrap the node, make the node able to talk to the chefserver on it's internal IP and then, create the data bags and add the role to the node using the following commands:
 
 	ssh -i <your private key> root@10.0.0.80 'echo "10.0.0.10 chefserver" >> /etc/hosts; mkdir -p /etc/chef; touch /etc/chef/encrypted_data_bag_secret; echo "superSECRETencryptionKEY" >> /etc/chef/encrypted_data_bag_secret'
+
+	knife data_bag create oracle
+	knife data_bag from file oracle client_pw.json
+	knife data_bag from file oracle server_pw.json
 
 	knife role from file oracle.rb
 
@@ -38,7 +42,7 @@ From the Workstation log into the node and run chef-client:
 
 	chef-client
 
-	# Get a cup of tea, or two....this takes about 50mins to complete. 
+	# Get a cup of tea, or two....this takes about 55 mins to complete. 
 
 Test the installation
 	
