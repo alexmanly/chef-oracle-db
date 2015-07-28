@@ -30,7 +30,7 @@ To bootstrap the node, make the node able to talk to the chefserver on it's inte
 
 	knife role from file oracle.rb
 
-	knife bootstrap 10.0.0.90 -N oracledb -x root -i <your private key> -r 'role[oracle]'
+	knife bootstrap 10.0.0.80 -N oracledb -x root -i <your private key> -r 'role[oracle]'
 	
 From the Workstation log into the node and run chef-client:
 
