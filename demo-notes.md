@@ -1,8 +1,8 @@
 # Demo Notes 
 
 	$env:DEMO_SSH_KEY='C:\Users\Administrator\.ssh\stack.pem'
-	$env:DEMO_IP='10.0.0.81'
-	$env:DEMO_NODE_NAME='oracle81'
+	$env:DEMO_IP='10.0.0.80'
+	$env:DEMO_NODE_NAME='oracledb'
 
 ## Provision Oracle
 

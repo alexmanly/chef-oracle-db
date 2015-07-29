@@ -26,7 +26,11 @@ To create the instace follow these instructions:
 
 To bootstrap the node, make the node able to talk to the chefserver on it's internal IP and then, create the data bags and add the role to the node using the following commands:
 
-	ssh -i <your private key> root@10.0.0.80 'echo "10.0.0.10 chefserver" >> /etc/hosts; mkdir -p /etc/chef; touch /etc/chef/encrypted_data_bag_secret; echo "superSECRETencryptionKEY" >> /etc/chef/encrypted_data_bag_secret'
+	$env:DEMO_SSH_KEY='C:\Users\Administrator\.ssh\stack.pem'
+	$env:DEMO_IP='10.0.0.80'
+	$env:DEMO_NODE_NAME='oracledb'
+
+	ssh -i $env:DEMO_SSH_KEY root@$env:DEMO_IP 'echo "10.0.0.10 chefserver" >> /etc/hosts; mkdir -p /etc/chef; touch /etc/chef/encrypted_data_bag_secret; echo "superSECRETencryptionKEY" >> /etc/chef/encrypted_data_bag_secret'
 
 	knife data_bag create oracle
 	knife data_bag from file oracle client_pw.json
@@ -34,11 +38,11 @@ To bootstrap the node, make the node able to talk to the chefserver on it's inte
 
 	knife role from file oracle.rb
 
-	knife bootstrap 10.0.0.80 -N oracledb -x root -i <your private key> -r 'role[oracle]'
+	knife bootstrap $env:DEMO_IP -N $env:DEMO_NODE_NAME -x root -i $env:DEMO_SSH_KEY -r '''role[oracle]'''
 	
 From the Workstation log into the node and run chef-client:
 
-	ssh -i <your private key> root@10.0.0.80
+	ssh -i $env:DEMO_SSH_KEY root@$env:DEMO_IP
 
 	chef-client
 
