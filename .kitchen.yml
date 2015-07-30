@@ -1,16 +1,73 @@
----
+# Kitche+Vagrant doc: https://github.com/test-kitchen/kitchen-vagrant/blob/master/README.md
 driver:
   name: vagrant
+  #gui: true
+  # Mount local /Users/amanly/chef-kits folder as /mnt/share on the VM
+  synced_folders:
+  - ["/Users/amanly/chef-kits", "/mnt/share", "disabled: false"]
+  customize:
+    cpus: 4
+    memory: 4096
+
+driver_config:
+  # I don't login often, but when I do, I do it as root
+  username: root
+  password: vagrant
 
 provisioner:
   name: chef_zero
+  # Download and install this exact version of chef-client
+  require_chef_omnibus: 12.3.0
+  # Use the local chef-client rpm specified in install_chef_rpm.sh: 
+  chef_omnibus_url: file:///mnt/share/install_chef_rpm.sh
+  client_rb:
+    # Use :enabled, :disabled or :audit_only to run the ServerSpec tests in the recipes 
+    audit_mode: :enabled
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.5
+  - name: centos6
+    driver:
+      box: "opscode-centos-6.6"
+      # see available box urls here: https://opscode-vm-bento.s3.amazonaws.com/
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
+      # Use the default host-only network along the NAT one. Makes life easier from a networking perspective
+      network:
+      - ["private_network", {ip: "192.168.56.44"}]
 
 suites:
   - name: default
+    data_bags_path: data_bags
+    encrypted_data_bag_secret_key_path: /Users/amanly/.chef/secret.txt
     run_list:
-      - recipe[base-oracle-db::default]
+      - recipe[oracle::default]
+      - recipe[oracle::logrotate_alert_log]
+      - recipe[oracle::logrotate_listener]
+      - recipe[oracle::createdb]
+      - recipe[base-oracle-db::create-user-db]
+      - recipe[base-oracle-db::execute-db-scripts]
+      - recipe[base-oracle-db::audit-oracle]
     attributes:
+      # Override default attribuites in the 'oracle' cookbook
+      oracle:
+        rdbms:
+          dbbin_version: 12c
+          # Point the install_files attribute to the synched_folder where the Oracle binaries are located
+          install_files:
+            - file:///mnt/share/oracle/linuxamd64_12102_database_1of2.zip
+            - file:///mnt/share/oracle/linuxamd64_12102_database_2of2.zip
+          # A small lie to skip the 'latest_dbpatch' recipe
+          latest_patch:
+            is_installed: true
+          # Set the data_bag(oracle) and items(server_pw, client_pw) to get the pw from
+          dbs:
+            DB1: false
+          sys_pw: demo
+        cliuser:
+          edb: oracle
+          edb_item: server_pw
+        user:
+          edb: oracle
+          edb_item: client_pw
+
+
+

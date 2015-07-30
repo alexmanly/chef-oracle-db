@@ -14,5 +14,5 @@ sqlplus 'sqlplus_create_user_db' do
   oracle_sid 'DB1'
   oracle_env '12R1'
   action :run
-  not_if "su - oracle -c 'echo \"select 123 from dual;\" | sqlplus demo/demo' | grep 123"
+  not_if "su - oracle -c 'echo \"select 123 from dual;\" | sqlplus #{node[:base_oracle_db][:schema][:user][:name]}/#{node[:base_oracle_db][:schema][:user][:password]}' | grep 123"
 end

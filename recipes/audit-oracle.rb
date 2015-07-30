@@ -13,8 +13,8 @@ control_group "Oracle Audit" do
       expect(service('oracle')).to be_running
     end
 
-    it "/opt/oracle should be mounted with an ext4 partition" do
-      expect(file("/opt/oracle")).to be_mounted.with( :type => "ext4" )
-    end
+    # it "/opt/oracle should be mounted with an ext4 partition" do
+    #   expect(file("/opt/oracle")).to be_mounted.with( :type => "ext4" )
+    # end
   end
 end
