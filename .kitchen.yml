@@ -25,7 +25,7 @@ provisioner:
     audit_mode: :enabled
 
 platforms:
-  - name: centos6
+  - name: centos6-oracle
     driver:
       box: "opscode-centos-6.6"
       # see available box urls here: https://opscode-vm-bento.s3.amazonaws.com/
@@ -37,7 +37,7 @@ platforms:
 suites:
   - name: default
     data_bags_path: data_bags
-    encrypted_data_bag_secret_key_path: /Users/amanly/.chef/secret.txt
+    encrypted_data_bag_secret_key_path: secret.txt
     run_list:
       - recipe[oracle::default]
       - recipe[oracle::logrotate_alert_log]
