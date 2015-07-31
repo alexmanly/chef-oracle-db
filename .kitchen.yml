@@ -3,6 +3,15 @@ driver:
   name: vagrant
   #gui: true
   # Mount local /Users/amanly/chef-kits folder as /mnt/share on the VM
+  #
+  # Contents of chef-kits
+  # |____chef
+  # | |____chef-12.4.1-1.el6.x86_64.rpm
+  # |____install_chef_rpm.sh
+  # |____oracle
+  # | |____linuxamd64_12102_database_1of2.zip
+  # | |____linuxamd64_12102_database_2of2.zip
+  #
   synced_folders:
   - ["/Users/amanly/chef-kits", "/mnt/share", "disabled: false"]
   customize:
@@ -19,6 +28,12 @@ provisioner:
   # Download and install this exact version of chef-client
   require_chef_omnibus: 12.3.0
   # Use the local chef-client rpm specified in install_chef_rpm.sh: 
+  #
+  # contents of: install_chef_rpm.sh
+  #
+  # major=`cat /etc/redhat-release | cut -d" " -f3 | cut -d "." -f1`
+  # rpm -Uvh --oldpackage --replacepkgs "/mnt/share/chef/chef-12.4.1-1.el$major.x86_64.rpm"
+  #
   chef_omnibus_url: file:///mnt/share/install_chef_rpm.sh
   client_rb:
     # Use :enabled, :disabled or :audit_only to run the ServerSpec tests in the recipes 
