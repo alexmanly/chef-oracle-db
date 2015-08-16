@@ -68,3 +68,7 @@ Test the installation
 
 	SYS@DB1>Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
 	With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+Login to the Oracle EM using TestKitchen
+
+	https://192.168.56.44:5500/em/login sys/demo

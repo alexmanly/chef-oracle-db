@@ -10,15 +10,15 @@ class Chef
       default_action :run
 
       attribute :location, :name_attribute => true, :kind_of => String
-      attribute :url, :name_attribute => true, :kind_of => String
-      attribute :user, :name_attribute => true, :kind_of => String
-      attribute :password, :name_attribute => true, :kind_of => String
-      attribute :install_dir, :name_attribute => true, :kind_of => String
-      attribute :flyway_version, :name_attribute => true, :kind_of => String
-      attribute :flyway_url, :name_attribute => true, :kind_of => String
-      attribute :owner, :name_attribute => true, :kind_of => String
-      attribute :group, :name_attribute => true, :kind_of => String
-      attribute :sensitive, :name_attribute => true, :kind_of => [TrueClass, FalseClass]
+      attribute :url, :name_attribute => false, :kind_of => String
+      attribute :user, :name_attribute => false, :kind_of => String
+      attribute :password, :name_attribute => false, :kind_of => String
+      attribute :install_dir, :name_attribute => false, :kind_of => String
+      attribute :flyway_version, :name_attribute => false, :kind_of => String
+      attribute :flyway_url, :name_attribute => false, :kind_of => String
+      attribute :owner, :name_attribute => false, :kind_of => String
+      attribute :group, :name_attribute => false, :kind_of => String
+      attribute :sensitive, :name_attribute => false, :kind_of => [TrueClass, FalseClass]
     end
   end
 end

@@ -22,6 +22,7 @@ CREATE USER <%= node[:base_oracle_db][:schema][:user][:name] %>
         DEFAULT TABLESPACE <%= node[:base_oracle_db][:schema][:tablespace][:name] %>;
 		
 GRANT UNLIMITED TABLESPACE TO <%= node[:base_oracle_db][:schema][:user][:name] %>;
+GRANT EM_EXPRESS_BASIC TO <%= node[:base_oracle_db][:schema][:user][:name] %>;
 
 CREATE ROLE <%= node[:base_oracle_db][:schema][:role][:name] %>;
 

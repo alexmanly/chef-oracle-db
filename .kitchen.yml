@@ -13,7 +13,7 @@ driver:
   # | |____linuxamd64_12102_database_2of2.zip
   #
   synced_folders:
-  - ["/Users/amanly/chef-kits", "/mnt/share", "disabled: false"]
+  - ["~/chef-kits", "/mnt/share", "disabled: false"]
   customize:
     cpus: 4
     memory: 4096

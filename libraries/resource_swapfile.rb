@@ -10,8 +10,8 @@ class Chef
       default_action :create
 
       attribute :swapfile_directory, :name_attribute => true, :kind_of => String
-      attribute :swapfile_name, :name_attribute => true, :kind_of => String
-      attribute :count_blocks, :name_attribute => true, :kind_of => String
+      attribute :swapfile_name, :name_attribute => false, :kind_of => String
+      attribute :count_blocks, :name_attribute => false, :kind_of => String
 
     end
   end

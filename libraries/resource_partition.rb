@@ -10,10 +10,10 @@ class Chef
       default_action :partition_and_mount
 
       attribute :device_id, :name_attribute => true, :kind_of => String
-      attribute :partition_number, :name_attribute => true, :kind_of => String
-      attribute :mount_dir, :name_attribute => true, :kind_of => String
-      attribute :partition_size, :name_attribute => true, :kind_of => String
-      attribute :fs_type, :name_attribute => true, :kind_of => String
+      attribute :partition_number, :name_attribute => false, :kind_of => String
+      attribute :mount_dir, :name_attribute => false, :kind_of => String
+      attribute :partition_size, :name_attribute => false, :kind_of => String
+      attribute :fs_type, :name_attribute => false, :kind_of => String
 
     end
   end
